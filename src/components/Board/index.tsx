@@ -7,6 +7,7 @@ interface Props {
     onRotate: (x: number, y: number) => void
 }
 
+
 const Board = ({ data, onRotate }: Props): JSX.Element => {
     const onTailClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, x: number, y: number) => {
         e.preventDefault()
@@ -18,7 +19,7 @@ const Board = ({ data, onRotate }: Props): JSX.Element => {
                 {data.map((a, y) =>
                     <div key={y} className="flex w-full">
                         {a.split('').map((b, x) =>
-                            <div className="flex w-full item" key={x} onClick={(e) => onTailClick(e, x, y)} data-character={b}>{b}</div>
+                            <div className="flex w-full item" key={x} onClick={(e) => onTailClick(e, x, y)} data-character={b}><img src={`/images/pipes/${b}.png`} /></div>
                         )}
                     </div>
                 )}

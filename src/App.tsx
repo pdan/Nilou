@@ -10,6 +10,7 @@ function App() {
   const [onopen, setOnopen] = useState<boolean>(false)
   const [map, setMap] = useState<string[][]>([])
   const wsRef = useRef<WebSocket>()
+  
 
   useEffect(() => {
     // wsRef.current = new WebSocket('wss://hometask.eg1236.com/game-pipes/');
