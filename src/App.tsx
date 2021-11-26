@@ -70,7 +70,7 @@ function App() {
   const verify = () => {
     // Rotate all
     // wsRef.current?.send('verify')
-    setOnOpen(false)
+    // setOnOpen(false)
     wsRef.current?.send('rotate ' + rotatedTiles.map(({ x, y }) => `${x} ${y}`).join('\n'))
     setTimeout(() => wsRef.current?.send('verify'), 5000)
 
@@ -82,7 +82,7 @@ function App() {
   return (
 
     <div className="bg-gray-300 h-screen justify-center">
-      <div className="rounded-5  flex flex-grow-0 lg:w-1/3 md:w-1/2 sm:w-1 text-lg space-x-3">
+      <div className="rounded-5  flex flex-grow-0 lg:w-1/3 md:w-1/2 sm:w-1 text-lg space-x-3 pt-2">
         <button className="rounded-md text-green-900 bg-green-500 px-5 py-2 hover:bg-green-600" onClick={() => newGame()}>Start game</button>
         {/* <button className="rounded-md text-red-800 bg-red-400 px-5 py-2 hover:bg-red-500" onClick={() => getMap()}>Get map</button> */}
         <button className="rounded-md text-yellow-800 bg-yellow-400 px-5 py-2 hover:bg-yellow-500" onClick={() => verify()}>Verify</button>

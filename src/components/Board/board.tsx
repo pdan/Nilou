@@ -24,7 +24,7 @@ const Board = ({ data }: Props): JSX.Element => {
                 {data.map((a, y) =>
                     <div key={y} className="flex w-full">
                         {a.split('').map((b, x) =>
-                            <Item data={b} x={x + 1} y={y + 1} onRotate={onTileRotate}/>
+                            <Item data={b} x={x} y={y} onRotate={onTileRotate}/>
                         )}
                     </div>
                 )}
