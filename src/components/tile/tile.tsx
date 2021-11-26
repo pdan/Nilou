@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch } from 'react-redux';
-import { Tile } from '../../models/tile'
+import { Tile } from '../../models/Tile'
 import './tile.css'
 
 
@@ -13,9 +13,6 @@ interface Props {
 
 
 const Item = ({ data, x, y, onRotate }: Props): JSX.Element => {
-
-
-
     const onTailClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.preventDefault()
         const rotateRate: number = e.currentTarget.dataset.rotate ? +e.currentTarget.dataset.rotate + 90 : 0;

@@ -1,78 +1,96 @@
+import { spawn } from 'child_process';
 import React, { useEffect, useRef, useState } from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider, useSelector } from 'react-redux';
-import thunk from 'redux-thunk'
-import logo from './logo.svg';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import jso from './sample.json'
-import Board from './components/Board'
-import { reducers } from './store/reducers';
-import { Tile } from './models/tile';
-import { Store } from './models/store';
+import Board from './components/Board/board'
+import { Store } from './models/Store';
+import { clearList } from './store/actions/tile';
 
 
 function App() {
 
+  const dispatch = useDispatch();
   const [level, setLevel] = useState<number>(1)
-  const [onopen, setOnopen] = useState<boolean>(false)
-  const [map, setMap] = useState<string[][]>([])
+  const [onOpen, setOnOpen] = useState<boolean>(false)
+  const [map, setMap] = useState<string[]>([])
   const wsRef = useRef<WebSocket>()
+  const rotatedTiles = useSelector((state: Store) => state.tilesStore);
 
 
   useEffect(() => {
-    // wsRef.current = new WebSocket('wss://hometask.eg1236.com/game-pipes/');
-    // wsRef.current.onopen = () => {
-    //   setOnopen(true)
-    // }
-    // wsRef.current.onmessage = (message :MessageEvent<string>) => {
-    //   console.log(message.data.split('\n'))
-    //   // setMap(message.data.split('\n')[1])
-    // }
-    // return () => wsRef.current?.close()
+    wsRef.current = new WebSocket('wss://hometask.eg1236.com/game-pipes/');
+    wsRef.current.onopen = () => {
+      setOnOpen(true)
+    }
 
+    wsRef.current.onmessage = onWSResultLoaded;
 
+    return () => wsRef.current?.close()
 
-    renderMap()
-  })
+  }, [])
 
-  const newGame = (level: number) => {
-    // setLevel(level)
-    // console.log(wsRef)
-    wsRef.current?.send(`new ${level}`)
+  const newGame = () => {
 
-    // if (wsRef && ref.current && ref.current.onmessage)
-    //   ref.current.onmessage = (e: MessageEvent) => {
-    //     console.log(e)
-    //   }
+    let selectedLevel = window.prompt('Please enter game level between 1-6:')
+    if (selectedLevel && parseInt(selectedLevel, 10) <= 6 && parseInt(selectedLevel, 10) >= 1)
+      setLevel(parseInt(selectedLevel, 10))
+    wsRef.current?.send(`new ${selectedLevel}`)
   }
 
   const getMap = () => {
     wsRef.current?.send(`map`)
   }
 
-  const renderMap = () => {
-    jso.data.shift()
-    jso.data.pop()
-    console.log(jso)
-    return [...jso.data]
+  const onWSResultLoaded = (message: MessageEvent<string>) => {
+    const command = message.data.split(':')[0]
+    let wsResponseData = message.data.split('\n')
+
+    switch (command) {
+      case 'map':
+        wsResponseData.shift()
+        wsResponseData.pop()
+        setMap(wsResponseData)
+        return;
+      case 'new':
+        getMap()
+        return;
+      case 'verify':
+        setOnOpen(true)
+        dispatch(clearList())
+        window.alert(message.data.split(':')[1])
+        return;
+      case 'rotate':
+        // On rotate all done
+        return;
+      default:
+        return
+    }
   }
 
-  const onRotate = (x: number, y: number) => {
-    console.log(x, y)
-    wsRef.current?.send(`rotate ${x} ${y}`)
+  const verify = () => {
+    // Rotate all
+    // wsRef.current?.send('verify')
+    setOnOpen(false)
+    wsRef.current?.send('rotate ' + rotatedTiles.map(({ x, y }) => `${x} ${y}`).join('\n'))
+    setTimeout(() => wsRef.current?.send('verify'), 5000)
+
   }
 
-  const store = createStore(reducers, applyMiddleware(thunk))
-  // if (!onopen) return (<></>)
+
+  if (!onOpen) return (<></>)
 
   return (
-    <Provider store={store}>
-      <div className="bg-blue-300">
-        <button onClick={() => newGame(1)}>Start game</button>
-        <button onClick={() => getMap()}>Get map</button>
-        <Board data={renderMap()} />
+
+    <div className="bg-gray-300 h-screen justify-center">
+      <div className="rounded-5  flex flex-grow-0 lg:w-1/3 md:w-1/2 sm:w-1 text-lg space-x-3">
+        <button className="rounded-md text-green-900 bg-green-500 px-5 py-2 hover:bg-green-600" onClick={() => newGame()}>Start game</button>
+        {/* <button className="rounded-md text-red-800 bg-red-400 px-5 py-2 hover:bg-red-500" onClick={() => getMap()}>Get map</button> */}
+        <button className="rounded-md text-yellow-800 bg-yellow-400 px-5 py-2 hover:bg-yellow-500" onClick={() => verify()}>Verify</button>
+        <div className="rounded-md text-gray-800  px-5 py-2 " >Game level: {level}</div>
       </div>
-    </Provider>
+      
+      <Board data={map} />
+    </div>
   );
 }
 

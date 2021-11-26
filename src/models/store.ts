@@ -1,4 +1,4 @@
-import { Tile } from './tile'
+import { Tile } from './Tile'
 export type Store = {
     /* 
         Tiles which is changed by user actions.
