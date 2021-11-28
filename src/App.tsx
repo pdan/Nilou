@@ -57,7 +57,9 @@ function App() {
       case 'verify':
         setOnOpen(true)
         dispatch(clearList())
-        window.alert(message.data.split(':')[1])
+        let popupMessage = message.data.split(':')
+        popupMessage.shift()
+        window.alert(popupMessage.join(''))
         return;
       case 'rotate':
         // On rotate all done
@@ -81,15 +83,15 @@ function App() {
 
   return (
 
-    <div className="bg-gray-300 h-screen justify-center">
-      <div className="rounded-5  flex flex-grow-0 lg:w-1/3 md:w-1/2 sm:w-1 text-lg space-x-3 pt-2">
+    <div className="bg-gray-300 h-screen justify-center ">
+      <div className="rounded-5  flex flex-grow-0 lg:w-1/3 md:w-1/2 sm:w-1 text-lg space-x-3 pt-2 mx-auto mb-5">
         <button className="rounded-md text-green-900 bg-green-500 px-5 py-2 hover:bg-green-600" onClick={() => newGame()}>Start game</button>
         {/* <button className="rounded-md text-red-800 bg-red-400 px-5 py-2 hover:bg-red-500" onClick={() => getMap()}>Get map</button> */}
         <button className="rounded-md text-yellow-800 bg-yellow-400 px-5 py-2 hover:bg-yellow-500" onClick={() => verify()}>Verify</button>
         <div className="rounded-md text-gray-800  px-5 py-2 " >Game level: {level}</div>
       </div>
       
-      <Board data={map} />
+      <Board data={map} level={level}/>
     </div>
   );
 }

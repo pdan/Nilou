@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# Pipes Puzzle
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Level passwords
 
-In the project directory, you can run:
+Level 1 password is: JustWarmingUp
 
 ### `yarn start`
 
