@@ -11,16 +11,13 @@ To install it right away, in the project directory type:
 
 Then open your browser on your `http://localhost:3000`
 
-1. Clone source code
-2. In your terminal go to project directory
-
 ## Level passwords
 
 Level 1 password is: JustWarmingUp
 
 ## Limitations
 
-* If user doesn't complete the game and press Verify Button, the verify result always will be ruined.
+* If user doesn't complete the game and press Verify Button, the verify result will always be ruined.
 * When user refresh the browser tab, game will be started from the beginig.
 * In mobile small screens only level 1is accessible.
 * No movement restrictions are considered. Therefore, If user moves exceed more than 1MB data, the verify result will be ruined and user should be start again.
