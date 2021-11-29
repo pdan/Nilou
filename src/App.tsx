@@ -70,9 +70,6 @@ function App() {
   }
 
   const verify = () => {
-    // Rotate all
-    // wsRef.current?.send('verify')
-    // setOnOpen(false)
     wsRef.current?.send('rotate ' + rotatedTiles.map(({ x, y }) => `${x} ${y}`).join('\n'))
     setTimeout(() => wsRef.current?.send('verify'), 5000)
 

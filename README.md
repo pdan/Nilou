@@ -15,6 +15,13 @@ Then open your browser on your `http://localhost:3000`
 
 Level 1 password is: JustWarmingUp
 
+## Design decisions
+
+* Using Redux store to save moves
+* Empty Redux store after every validating
+* Define Tile component as a state less one becase there are many tiles in higher levels and uses lots of memory.
+* Made the Board as a component to render after data is loaded and expand based on levels.
+
 ## Limitations
 
 * If user doesn't complete the game and presses Verify Button, the verify result will always be ruined.
