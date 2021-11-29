@@ -2,6 +2,8 @@
 
 This project was created by React, Redux and Typescript. You can play it on [Pipes Puzzle Game](https://nilou.daneshvar.me).
 
+![alt text](https://github.com/pdan/Nilou/blob/master/screenshot.jpg?raw=true)
+
 ## How to lunch
 
 To install it right away, in the project directory type:
