@@ -17,9 +17,9 @@ Level 1 password is: JustWarmingUp
 
 ## Limitations
 
-* If user doesn't complete the game and press Verify Button, the verify result will always be ruined.
-* When user refresh the browser tab, game will be started from the beginig.
-* In mobile small screens only level 1is accessible.
-* No movement restrictions are considered. Therefore, If user moves exceed more than 1MB data, the verify result will be ruined and user should be start again.
-* For upper levels, tiles goes very small and user is not able to rotate those.
+* If user doesn't complete the game and presses Verify Button, the verify result will always be ruined.
+* When user refreshes the browser tab, game will be started from the beginig.
+* In mobile small screens only level 1st accessible.
+* No movement restrictions are considered. Therefore, If user moves exceed more than 1MB data, the verify result will be ruined and user should start again.
+* For upper levels, tiles become tiny and user is not able to rotate them.
 
